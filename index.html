@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+        /* Basic Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        header, section, footer {
+            padding: 20px;
+            margin: 10px;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            position: fixed;
+            top: 0;
+            width: 98%;
+            z-index: 1000;
+        }
+        header nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header nav a {
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+        }
+        header nav a:hover {
+            background-color: #555;
+        }
+        .menu {
+            display: none;
+        }
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+        }
+        .menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px;
+            background-color: white;
+        }
+        @media (max-width: 768px) {
+            .menu {
+                display: block;
+                flex-direction: column;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            header nav a {
+                display: none;
+            }
+            .menu.active a {
+                display: block;
+                padding: 10px;
+            }
+        }
+        .search-bar {
+            margin-top: 100px;
+            text-align: center;
+        }
+        .search-bar input {
+            padding: 10px;
+            width: 300px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .search-bar button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+        }
+        .search-bar button:hover {
+            background-color: #555;
+        }
+        .weather-details {
+            display: none; /* Hide by default, will be shown when data is fetched */
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+        .about {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        .back-to-top {
+            display: none; /* Hidden by default */
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .key_p {
+            color: black;
+            font-size: larger;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <a href="#home">Home</a>
+        <a href="#weather">Weather Details</a>
+        <a href="#about">About</a>
+        <a href="#footer">Footer</a>
+        <div class="menu">
+            <a href="#home">Home</a>
+            <a href="#weather">Weather Details</a>
+            <a href="#about">About</a>
+            <a href="#footer">Footer</a>
+        </div>
+    </nav>
+</header>
+
+<section id="home">
+    <div class="search-bar">
+        <input type="text" id="cityName" placeholder="Enter a city name">
+        <button onclick="getWeather()">Search</button>
+    </div>
+</section>
+
+<section id="weather" class="weather-details">
+    <h2>Weather Details</h2>
+    <p id="weather-info"></p>
+</section>
+
+<section id="about" class="about">
+    <h2>About</h2>
+    <p>This application provides current weather information for various cities.</p>
+    <p class="key">Key Features:<p>
+
+    <p>City Search Feature: Users can enter a city name to get its weather information.</p>  
+        
+    <p>Current Weather Display: The app shows crucial weather details like temperature, humidity, wind speed, and a brief description of the weather.
+    </p> 
+       <p>Temperature Unit Switch: Users can toggle between Celsius and Fahrenheit for temperature readings.
+    </p> 
+       <p>Responsive Layout: The application is optimized for multiple devices, providing a consistent user experience on desktops, tablets, and smartphones.</p> 
+        
+
+    <img src="C:\Users\Likkee\OneDrive\Desktop\html-css\Untitled design (1).png"  width="1600">>
+</section>
+
+<footer id="footer">
+    <p>Follow us on:</p>
+    <a href="https://github.com" target="_blank">GitHub</a>
+    <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+    <p>
+        <a href="#">Terms and Conditions</a> | 
+        <a href="#">Privacy Policy</a> | 
+        <a href="#">Copyright Information</a>
+    </p>
+</footer>
+
+<div class="back-to-top" onclick="scrollToTop()">Back to Top</div>
+
+<script>
+    function toggleMenu() {
+        var menu = document.querySelector('.menu');
+        menu.classList.toggle('active');
+    }
+
+    function getWeather() {
+        var city = document.getElementById('cityName').value;
+        var weatherInfo = document.getElementById('weather-info');
+        
+        // Placeholder for weather data fetching logic
+        // For demonstration, we show hard-coded weather details
+
+        if (city.toLowerCase() === 'hyderabad') {
+            weatherInfo.innerHTML = `
+                <h3>${city}</h3>
+                <p>Date: ${new Date().toLocaleDateString()}</p>
+                <p>Temperature: 27°C</p>
+                <p>Description: Cloudy</p>
+                <p>Humidity: 62%</p>
+                <p>Wind Speed: 10 km/h</p>
+            `;
+            document.querySelector('.weather-details').style.display = 'block';
+
+        else if (city.toLowerCase() === 'mumbai') {
+            weatherInfo.innerHTML = `
+                <h3>${city}</h3>
+                <p>Date: ${new Date().toLocaleDateString()}</p>
+                <p>Temperature: 28°C</p>
+                <p>Description: Sunny</p>
+                <p>Humidity: 47%</p>
+                <p>Wind Speed: 6 km/h</p>
+            `;
+            document.querySelector('.weather-details').style.display = 'block';
+
+        else if (city.toLowerCase() === 'delhi') {
+            weatherInfo.innerHTML = `
+                <h3>${city}</h3>
+                <p>Date: ${new Date().toLocaleDateString()}</p>
+                <p>Temperature: 22°C</p>
+                <p>Description: Sunny</p>
+                <p>Humidity: 48%</p>
+                <p>Wind Speed: 3 km/h</p>
+            `;
+            document.querySelector('.weather-details').style.display = 'block';
+        } 
+        else {
+            weatherInfo.innerHTML = `<p>City not found.</p>`;
+            document.querySelector('.weather-details').style.display = 'block';
+        }
+    }
+
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('scroll', function() {
+        var backToTopBtn = document.querySelector('.back-to-top');
+        if (window.scrollY > 200) {
+            backToTopBtn.style.display = 'block';
+        } else {
+            backToTopBtn.style.display = 'none';
+        }
+    });
+</script>
+<script src="cities.js"></script>
+
+
+
+</body>
+</html>
